@@ -62,6 +62,8 @@ void dfs2(int node) {
 }
 
 void solve() {
+    
+    //just check if we can follow the order      src   --> positive cycle  -- > destination
 
     ll n , m , a , b , c; cin >> n >> m;
 
