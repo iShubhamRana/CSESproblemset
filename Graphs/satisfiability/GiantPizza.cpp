@@ -108,11 +108,12 @@ void solve2sat() {
 
 void add_disjunction(int a, bool na , int b , bool nb) {
 
-
+    //sice 2*a is even if we want to negate xor operation will icnrease the last bit by one
     a = 2 * a ^ na;
     b = 2 * b ^ nb;
 
-
+    //since positions aree odd and even 2x and 2x+1 , we can switch between them using xor 1
+    
     int neg_a = a ^ 1;
     int neg_b = b ^ 1;
 
