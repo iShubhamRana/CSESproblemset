@@ -1,0 +1,132 @@
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,avx2,fma")
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+typedef vector <int> vi;
+typedef pair <int, int>  pi;
+
+/***************************************************************************************/
+//access keywords
+#define F first
+#define S second
+#define PB push_back
+#define MP make_pair
+/*************************************************************************************/
+#define REP(i,a,b) for(int i=a;i<=b;i++)
+#define inputVectori(v) for(auto &x:v) cin>>x;
+#define printVectori(v) for(auto &x:v) cout<<x<<" ";
+#define all(v) v.begin(),v.end()
+/*****Remember inbuilt c++ functions*************************/
+
+// next_permutation(), __builtin_popcount()
+
+/***********************************************************/
+const int mod  = 1e9 + 7;
+
+inline void newLine() {
+    cout << "\n";
+}
+
+void checkjudge() {
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+#endif
+}
+int n, m;
+ll adj[501][501] , oadj[501][501];
+
+ll flow[501];
+ll par[501];
+bool V[501];
+
+vector<pi> ans;
+
+bool reachable() {
+    memset(V, false, sizeof(V));
+    queue<int> q;
+    q.push(1); V[1] = 1;
+
+    while (q.size()) {
+        int i = q.front(); q.pop();
+        REP(j, 1, n) {
+            if (adj[i][j] and !V[j]) {
+                V[j] = 1;
+                par[j] = i;
+                q.push(j);
+            }
+        }
+    }
+
+    return V[n];
+}
+
+void solve() {
+    cin >> n >> m;
+
+    REP(i, 1, n) {
+        REP(j, 1, n) {
+            adj[i][j] = oadj[i][j] = 0;
+        }
+    }
+
+    REP(i, 1, m) {
+        ll a, b; cin >> a >> b;
+        adj[a][b]++, adj[b][a]++;
+        oadj[a][b]++, oadj[b][a]++;
+    }
+
+    int v, u;
+    while (reachable()) {
+        ll flow = 1e18;
+        for (v = n; v != 1; v = par[v] ) {
+            u = par[v];
+            flow = min(flow , adj[u][v]);
+        }
+
+        for (v = n; v != 1; v = par[v]) {
+            u = par[v];
+            adj[u][v] -= flow;
+            adj[v][u] += flow;
+        }
+
+    }
+
+    reachable();
+
+    REP(i, 1, n) {
+        REP(j, 1, n) {
+            if (V[i] and !V[j] and oadj[i][j]) {
+                ans.PB({i, j});
+            }
+        }
+    }
+
+    cout << ans.size();
+    newLine();
+    for (auto &x : ans) {
+        cout << x.F << " " << x.S;
+        newLine();
+    }
+
+}
+
+int32_t main() {
+    checkjudge();
+
+    /*********************************************************************/
+
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    /*************************************************************************************/
+    int t = 1;
+    // cin >> t;
+    for (int z = 1; z <= t; z++) {
+        solve();
+    }
+    return 0;
+}
