@@ -1,7 +1,7 @@
 /*
 Use Inclusion-Exclusion principle , 
 if (size of elements included is odd) add
-else subtract
+else subtrac
 */
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
@@ -88,9 +88,6 @@ void solve() {
 
 }
 
-
-
-
 int32_t main() {
     checkjudge();
 
@@ -105,8 +102,6 @@ int32_t main() {
     for (int z = 1; z <= t; z++) {
         solve();
     }
-
-
 
     return 0;
 }
