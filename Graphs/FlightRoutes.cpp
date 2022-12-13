@@ -1,3 +1,6 @@
+//only one change , instead of max distance we compare with  k max distance
+
+
 #pragma GCC optimize("Ofast")
 #pragma GCC target("avx,avx2,fma")
 #include<bits/stdc++.h>
