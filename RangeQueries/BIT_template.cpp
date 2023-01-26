@@ -26,13 +26,12 @@ public:
     // after removing the last bit number is smaller than current , and this way current lies
     //between a smaller and a greater number
 
-    long long add(int k , int x) {
+   void add(int k , int x) {
 
         while (k <= n) {
             v[k] += x;
             k += k & -k;
         }
-
     }
 
 };
