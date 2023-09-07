@@ -55,9 +55,6 @@ struct segmentTree
 
 	void update(int start, int end , int node , int l , int r , int value) {
         
-        //non overlaping
-        if(start > r || end < l) return ;
-        
         
          //update the lazy part
          if(lazy[node]!=0){
@@ -74,6 +71,8 @@ struct segmentTree
             }
             lazy[node]=0;
         }
+           //non overlaping
+        if(start > r || end < l) return ;
         
         if(start >=l and end <=r){
             st[node] += value * (end - start+1);
@@ -88,7 +87,7 @@ struct segmentTree
         int mid = (start+end)/2;
         update(start,mid,2*node+1 , l , r,value);
         update(mid+1,end,2*node+2 , l , r,value);
-	
+	st[node] = st[2*node+1] + st[2*node+2];
 	}
 
 	void build(vector<int> &v) {
